@@ -1,3 +1,11 @@
 vwts/Temp/
 vwts/Library/
+vwts/Obj/
+   
+*.csproj
+*.unityproj
+*.sln
+*.user
+*.userprefs
+*.DS_store
 *.log
