@@ -7,7 +7,7 @@ public class PacketSender : MonoBehaviour {
 
 	public GameObject targetObject;
 
-	public float spawnRate = 10f;
+	public float spawnRate = 30f;
 	public float packetDestroyTime = 1f;
 
 	public float xPacketRotation = 0;
@@ -35,17 +35,22 @@ public class PacketSender : MonoBehaviour {
 		InvokeRepeating ("sendPackets", 0.0f, 1 / spawnRate);
 	}
 
-	public void StopSendingPackets(){
-		CancelInvoke ("movePackets");
+	public void StartReceivingPackets(){
+		InvokeRepeating ("receivePackets", 0.0f, 1 / spawnRate);
 	}
 
-	void movePackets(){
+	public void StopSendingPackets(){
+		CancelInvoke ("sendPackets");
+		CancelInvoke ("receivePackets");
+	}
+
+	private void sendPackets(){
 		GameObject p = (GameObject)Instantiate (packet, 
-			new Vector3 (
-				gameObject.transform.position.x + xPacketOriginOffset, 
-				gameObject.transform.position.y + yPacketOriginOffset, 
-				gameObject.transform.position.z + zPacketOriginOffset), 
-			Quaternion.Euler(xPacketRotation, yPacketRotation, zPacketRotation));
+			               new Vector3 (
+				               gameObject.transform.position.x + xPacketOriginOffset, 
+				               gameObject.transform.position.y + yPacketOriginOffset, 
+				               gameObject.transform.position.z + zPacketOriginOffset), 
+			               Quaternion.Euler (xPacketRotation, yPacketRotation, zPacketRotation));
 		
 		iTween.MoveTo (p, 
 			iTween.Hash(
@@ -55,6 +60,27 @@ public class PacketSender : MonoBehaviour {
 				"easeType", "easeInOutSine", 
 				"loopType", "loop", 
 				"delay", .1));
+
+		Destroy (p, packetDestroyTime);
+	}
+
+	private void receivePackets(){
+		GameObject p = (GameObject)Instantiate (packet, 
+			               new Vector3 (
+				               targetObject.transform.position.x + xPacketTargetOffset,
+				               targetObject.transform.position.y + yPacketTargetOffset,
+				               targetObject.transform.position.z + zPacketTargetOffset),
+			               Quaternion.Euler (xPacketRotation, yPacketRotation, zPacketRotation));
+
+		iTween.MoveTo (p,
+			iTween.Hash(
+				"x", gameObject.transform.position.x + xPacketOriginOffset, 
+				"y", gameObject.transform.position.y + yPacketOriginOffset,
+				"z", gameObject.transform.position.z + zPacketOriginOffset, 
+				"easeType", "easeInOutSine", 
+				"loopType", "loop", 
+				"delay", .1));
+		
 		Destroy (p, packetDestroyTime);
 	}
 }
