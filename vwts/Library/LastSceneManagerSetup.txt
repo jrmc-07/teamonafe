@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/vwts_scene.unity
+- path: Assets/Scenes/vwts_scene.unity
   isLoaded: 1
   isActive: 1
