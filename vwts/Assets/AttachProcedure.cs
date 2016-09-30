@@ -13,15 +13,17 @@ public class AttachProcedure : MonoBehaviour {
 		try{
 			enbPacketSender = uePacketSender.GetComponent <PacketSender> ().targetObject.GetComponent<PacketSender> ();
 			mmePacketSender = uePacketSender.GetComponent <PacketSender> ().targetObject.GetComponent<PacketSender> ().targetObject.GetComponent<PacketSender> ();
-			StartCoroutine(AttachUe());
 		}
 		catch(Exception){
 			Debug.LogError ("Drag UE's PacketSender script to AttachProcedure script");
 		}
 	}
 
+	public void StartUeAttach(){
+		StartCoroutine (attachUe ());
+	}
 
-	IEnumerator AttachUe()
+	IEnumerator attachUe()
 	{
 		uePacketSender.StartSendingPackets ();
 		yield return new WaitForSeconds(2);
