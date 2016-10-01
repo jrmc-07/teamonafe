@@ -4,6 +4,8 @@ using System.Collections;
 public class Mme : MonoBehaviour {
 	
 	private bool displayOnce = false;
+	private bool spawned = false;
+	public bool establishedS1 = false;
 	float speed = 0.25f;
 	
 	// Use this for initialization
@@ -28,5 +30,10 @@ public class Mme : MonoBehaviour {
 		{
 			transform.position = new Vector3(transform.position.x, transform.position.y + speed, transform.position.z);
 		}
+	}
+	
+	void CreateMmeS1Link(){
+		print("Mme: Creating S1 link");
+		establishedS1 = true;
 	}
 }

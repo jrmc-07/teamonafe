@@ -3,7 +3,10 @@ using System.Collections;
 
 public class SPgw : MonoBehaviour {
 	
+	public GameObject S1uTunnel;
 	private bool displayOnce = false;
+	public bool spawned = false;
+	private bool establishedS1u = true;
 	float speed = 0.25f;
 	
 	// Use this for initialization
@@ -28,5 +31,10 @@ public class SPgw : MonoBehaviour {
 		{
 			transform.position = new Vector3(transform.position.x, transform.position.y + speed, transform.position.z);
 		}
+	}
+	
+	void CreateSPgwS1uLink(){
+		print("SPgw: Creating S1u link");
+		establishedS1u = true;
 	}
 }
