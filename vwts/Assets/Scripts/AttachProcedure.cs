@@ -13,6 +13,9 @@ public class AttachProcedure : MonoBehaviour {
 		try{
 			enbPacketSender = uePacketSender.GetComponent <PacketSender> ().targetObject.GetComponent<PacketSender> ();
 			mmePacketSender = uePacketSender.GetComponent <PacketSender> ().targetObject.GetComponent<PacketSender> ().targetObject.GetComponent<PacketSender> ();
+
+			//test
+			StartUeAttach();
 		}
 		catch(Exception){
 			Debug.LogError ("Drag UE's PacketSender script to AttachProcedure script");
@@ -30,6 +33,12 @@ public class AttachProcedure : MonoBehaviour {
 		enbPacketSender.StartSendingPackets ();
 		yield return new WaitForSeconds(2);
 		mmePacketSender.StartSendingPackets ();
+	}
+
+	public void StopAttach(){
+		uePacketSender.StopSendingPackets ();
+		enbPacketSender.StopSendingPackets ();
+		mmePacketSender.StopSendingPackets ();
 	}
 	
 	// Update is called once per frame
